@@ -1,0 +1,5 @@
+api-gateway/node_modules
+
+orders-service/node_modules
+
+products-service/node_modules
