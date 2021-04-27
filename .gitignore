@@ -1,5 +1,10 @@
+node_modules
+
+api-gateway/.env
 api-gateway/node_modules
 
+orders-service/.env
 orders-service/node_modules
 
+products-service/.env
 products-service/node_modules

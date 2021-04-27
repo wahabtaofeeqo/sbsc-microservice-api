@@ -3,24 +3,32 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// Env Variables 
+require('dotenv').config();
+
+//Database connection
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.on('error', console.error.bind(console, 'Connection Error'));
+
+// Routes
+var router = require('./routes/index');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 
+app.use(router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
