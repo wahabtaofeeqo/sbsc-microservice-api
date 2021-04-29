@@ -40,7 +40,8 @@ responder.on("a product", async (req, callback) => {
 	else {
 		callback(null, {
 			error: true,
-			message: 'Database Connection Failed!'
+			message: 'No product found!',
+			data: null
 		})
 	}
 });
@@ -63,7 +64,7 @@ responder.on("create product", async function(req, callback) {
 	else {
 		callback(null, {
 			error: true,
-			message: 'Database Connection Failed!'
+			message: 'Error occured!'
 		})
 	}
 });

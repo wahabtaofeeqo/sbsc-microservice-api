@@ -11,4 +11,10 @@ router.post("/auth/login", (req, res) => {
 	});
 })
 
+router.get("/users", (req, res) => {
+	requester.send({ type: "users" }, (err, result) => {
+		res.send(result);
+	});
+})
+
 module.exports = router;

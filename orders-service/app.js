@@ -4,9 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var app = express();
+
+var mongoose = require('mongoose');
+
+// Env Variables 
+require('dotenv').config();
+
 var routes = require('./routes/index');
 
-var app = express();
+//Database connection
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.on('error', console.error.bind(console, 'Connection Error'));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

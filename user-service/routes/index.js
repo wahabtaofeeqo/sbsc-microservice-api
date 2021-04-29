@@ -9,8 +9,19 @@ const Controller = require('../controller');
 const cote = require("cote");
 const responder = new cote.Responder({name: "Users Responder", key: "users"});
 
+
 responder.on("auth", async (req, callback) => {
 	var result = await Controller.user(req.email);
+	if (result) {
+		callback(null, result);
+	}
+	else {
+		callback(null, null)
+	}
+})
+
+responder.on("users", async (req, callback) => {
+	var result = await Controller.users();
 	if (result) {
 		callback(null, result);
 	}
@@ -55,6 +66,11 @@ responder.on("register", async (req, callback) => {
 		error: true,
 		message: "Not implemented"
 	})
+})
+
+responder.on("user with id", async (req, callback) => {
+	const user = await Controller.userWithID(req.id);
+	callback(null, user);
 })
 
 module.exports = router;
