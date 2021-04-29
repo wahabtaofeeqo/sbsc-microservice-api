@@ -62,10 +62,30 @@ responder.on("login", async (req, callback) => {
 })
 
 responder.on("register", async (req, callback) => {
-	callback(null, {
-		error: true,
-		message: "Not implemented"
-	})
+
+	let data = {
+		name: req.name,
+		email: req.email,
+		password: bcrypt.hashSync(req.password)
+	}
+
+	let User = await Controller.addUser(data);
+	if (User) {
+
+		const payload = {userid: User._id, email: User.email};
+		const token = jwt.encode(payload, process.env.JWT_SECRET);
+		callback(null, {
+			error: false,
+			message: "Account created Successfully",
+			accessToken: token
+		})
+	}
+	else {
+		callback(null, {
+			error: true,
+			message: "Operation not succeeded!"
+		})
+	}
 })
 
 responder.on("user with id", async (req, callback) => {

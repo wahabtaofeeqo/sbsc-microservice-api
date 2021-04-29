@@ -17,4 +17,18 @@ router.get("/users", (req, res) => {
 	});
 })
 
+router.post("/auth/register", (req, res) => {
+
+	const data = {
+		type: "register",
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password
+	};
+
+	requester.send(data, function(err, result) {
+		res.send(result);
+	});
+})
+
 module.exports = router;

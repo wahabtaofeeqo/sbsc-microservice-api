@@ -14,7 +14,9 @@ require('dotenv').config();
 var routes = require('./routes/index');
 
 //Database connection
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+const password = process.env.DB_PASS;
+const DB_URL = "mongodb+srv://taocoder:"+ encodeURIComponent(password) +"@cluster0.yjg9n.mongodb.net/ecommerce?retryWrites=true&w=majority"
+mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connection.on('error', console.error.bind(console, 'Connection Error'));
 
 
