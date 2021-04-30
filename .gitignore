@@ -8,3 +8,6 @@ orders-service/node_modules
 
 products-service/.env
 products-service/node_modules
+
+user-service/.env
+user-service/node_modules
